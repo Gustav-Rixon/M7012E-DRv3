@@ -3,7 +3,7 @@ import socket
 import json
 
 class DRDoubleSDK():
-    def __init__(self, address='130.240.114.43'):
+    def __init__(self, address='/tmp/doubleapi'):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.sock.connect(address)
 
