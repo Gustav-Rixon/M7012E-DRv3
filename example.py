@@ -13,7 +13,7 @@ try:
     d3.sendCommand('base.requestStatus');
     while True:
         packet = d3.recv()
-        d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+        d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 360 })
         if packet != None:
             event = packet['class'] + '.' + packet['key']
             if event == 'DRBase.status':
