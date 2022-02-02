@@ -11,7 +11,21 @@ try:
     d3.sendCommand('screensaver.nudge');
     d3.sendCommand('camera.enable', { 'template': 'screen' });
     d3.sendCommand('base.requestStatus');
-    d3.sendCommand('base.turnBy', { "degrees": 2000, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
+    d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 0 })
     while True:
         packet = d3.recv()
         if packet != None:
