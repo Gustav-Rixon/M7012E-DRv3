@@ -5,7 +5,7 @@ d3 = double.DRDoubleSDK()
 
 try:
     while True:
-        d3.sendCommand('base.turnBy', { "degrees": 360, "degreesWhileDriving": 360 })
+        d3.sendCommand('camera.enable', { "width": 1152, "height": 720, "template": "v4l2", "gstreamer": "appsrc name=d3src ! autovideosink" })
 
 
 except KeyboardInterrupt:
