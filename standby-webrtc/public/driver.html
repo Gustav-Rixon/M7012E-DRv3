@@ -43,9 +43,7 @@
           <input type="button" value="Clear" onclick="endLocalVideo()">
         </li>
 
-        <li class="optional">
-          Optional: Set your own STUN/TURN servers (e.g. <a href="https://github.com/coturn/coturn" target="_blank">coturn</a>)<br>
-          <textarea id="iceConfig" rows="11" style="width: 500px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{
+          <textarea id="iceConfig" rows="11" style="display: none;";" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{
   "iceTransportPolicy": "all",
   "iceServers": [
     { "urls": [ "stun:rtc-oregon.doublerobotics.com:443" ] },
@@ -56,7 +54,6 @@
     }
   ]
 }</textarea>
-        </li>
 
         <li>
           <input type="button" value="Call" onclick="startCall()">
