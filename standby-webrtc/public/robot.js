@@ -7,7 +7,7 @@ function log(text) {
 
 var socket = null;
 function connectWebsocket() {
-  socket = new WebSocket("wss://" + window.location.hostname);
+  socket = new WebSocket("ws://" + window.location.hostname + ":3000");
   log("socket")
   socket.onopen = function(event) { log("Connected to server"); };
   log(socket)
