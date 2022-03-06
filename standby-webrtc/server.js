@@ -13,6 +13,52 @@ app.get("/robot", (request, response) => {
   response.sendFile(__dirname + "/public/robot.html");
 });
 
+app.get("/forward", (request, response) => {
+  response.send("Turing forward")
+
+  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
+    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
+  }
+
+});
+
+app.get("/backward", (request, response) => {
+  response.send("going backward");
+
+  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
+    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
+  }
+
+});
+
+app.get("/left", (request, response) => {
+  response.send("Turing left")
+
+  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
+    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
+  }
+
+});
+
+app.get("/right", (request, response) => {
+  response.send("Turing right")
+
+  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
+    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
+  }
+
+});
+
+app.get("/up", (request, response) => {
+  response.send("Raising pole")
+  DRDoubleSDK.sendCommand("base.pole.stand");
+});
+
+app.get("/down", (request, response) => {
+  response.send("Lowering pole")
+  DRDoubleSDK.sendCommand("base.pole.sit");
+});
+
 // Launch express server
 const server = createServer(app);
 server.listen(3000, '0.0.0.0', () => {
@@ -42,6 +88,6 @@ webSocketServer.on("connection", socket => {
       }
     });
   });
-  
+
   socket.send("Hello from server");
 });
