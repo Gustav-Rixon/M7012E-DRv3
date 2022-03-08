@@ -75,6 +75,22 @@ function connectWebsocket() {
           DRDoubleSDK.sendCommand("navigate.enable");
           break;
 
+        case "driveForward":
+          DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0.5, turn: 0, powerDrive: false, disableTurn: false });
+          break;
+
+        case "driveBackward":
+          DRDoubleSDK.sendCommand("navigate.drive", { throttle: -0.5, turn: 0, powerDrive: false, disableTurn: false });
+          break;
+
+        case "turnLeft":
+          DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0, turn: -0.5, powerDrive: false, disableTurn: false });
+          break;
+
+        case "turnRight":
+          DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0, turn: 0.5, powerDrive: false, disableTurn: false });
+          break;
+
         case "relativeTarget":
           if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
             DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });

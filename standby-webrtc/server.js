@@ -13,57 +13,14 @@ app.get("/robot", (request, response) => {
   response.sendFile(__dirname + "/public/robot.html");
 });
 
-app.get("/forward", (request, response) => {
-  response.send("Turing forward")
 
-  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
-    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
-  }
-
-});
-
-app.get("/backward", (request, response) => {
-  response.send("going backward");
-
-  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
-    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
-  }
-
-});
-
-app.get("/left", (request, response) => {
-  response.send("Turing left")
-
-  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
-    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
-  }
-
-});
-
-app.get("/right", (request, response) => {
-  response.send("Turing right")
-
-  if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
-    DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
-  }
-
-});
-
-app.get("/up", (request, response) => {
-  response.send("Raising pole")
-  DRDoubleSDK.sendCommand("base.pole.stand");
-});
-
-app.get("/down", (request, response) => {
-  response.send("Lowering pole")
-  DRDoubleSDK.sendCommand("base.pole.sit");
-});
 
 // Launch express server
 const server = createServer(app);
 server.listen(3000, '0.0.0.0', () => {
   console.info(`Server running on port: 3000`);
-});
+}
+);
 
 // Launch websocket server
 const webSocketServer = new WebSocket.Server({ server });
@@ -90,4 +47,63 @@ webSocketServer.on("connection", socket => {
   });
 
   socket.send("Hello from server");
+
+  app.get("/poleStand", (request, response) => {
+    response.send("Raising pole")
+    socket.send(JSON.stringify({ type: 'poleStand' }))
+  });
+  
+  app.get("/poleSit", (request, response) => {
+    response.send("Lowering pole")
+    socket.send(JSON.stringify({ type: 'poleSit' }))
+  });
+
+  app.get("/poleStop", (request, response) => {
+    response.send("Stop pole")
+    socket.send(JSON.stringify({ type: 'poleStop' }))
+  });
+
+  app.get("/enableNavigation", (request, response) => {
+    response.send("Enableling navigation")
+    socket.send(JSON.stringify({ type: 'enableNavigation' }))
+  });
+
+  app.get("/driveForward", (request, response) => {
+    response.send("Driveing forward")
+    socket.send(JSON.stringify({ type: 'driveForward'}))
+  });
+
+  app.get("/driveBackward", (request, response) => {
+    response.send("Driveing backward")
+    socket.send(JSON.stringify({ type: 'driveBackward'}))
+  });
+
+  app.get("/turnLeft", (request, response) => {
+    response.send("turnLeft")
+    socket.send(JSON.stringify({ type: 'turnLeft'}))
+  });
+
+  app.get("/turnRight", (request, response) => {
+    response.send("turnRight")
+    socket.send(JSON.stringify({ type: 'turnRight'}))
+  });
+
+
+
+  app.get("/test", (request, response) => {
+    response.send("Driveing test")
+    socket.send(JSON.stringify({ type: 'relativeTarget', x: 1, y: 0 }))
+  });
+
+
+
+  app.get("/turn", (request, response) => {
+    response.send("Driveing forward")
+    socket.send(JSON.stringify({ type: 'turn' }))
+  });
+
+
+
+
 });
+
