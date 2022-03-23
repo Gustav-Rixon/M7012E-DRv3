@@ -48,11 +48,15 @@ webSocketServer.on("connection", socket => {
 
   socket.send("Hello from server");
 
+
+
+  // Define API endpoints
+
   app.get("/poleStand", (request, response) => {
     response.send("Raising pole")
     socket.send(JSON.stringify({ type: 'poleStand' }))
   });
-  
+
   app.get("/poleSit", (request, response) => {
     response.send("Lowering pole")
     socket.send(JSON.stringify({ type: 'poleSit' }))
@@ -70,40 +74,23 @@ webSocketServer.on("connection", socket => {
 
   app.get("/driveForward", (request, response) => {
     response.send("Driveing forward")
-    socket.send(JSON.stringify({ type: 'driveForward'}))
+    socket.send(JSON.stringify({ type: 'driveForward' }))
   });
 
   app.get("/driveBackward", (request, response) => {
     response.send("Driveing backward")
-    socket.send(JSON.stringify({ type: 'driveBackward'}))
+    socket.send(JSON.stringify({ type: 'driveBackward' }))
   });
 
   app.get("/turnLeft", (request, response) => {
     response.send("turnLeft")
-    socket.send(JSON.stringify({ type: 'turnLeft'}))
+    socket.send(JSON.stringify({ type: 'turnLeft' }))
   });
 
   app.get("/turnRight", (request, response) => {
     response.send("turnRight")
-    socket.send(JSON.stringify({ type: 'turnRight'}))
+    socket.send(JSON.stringify({ type: 'turnRight' }))
   });
-
-
-
-  app.get("/test", (request, response) => {
-    response.send("Driveing test")
-    socket.send(JSON.stringify({ type: 'relativeTarget', x: 1, y: 0 }))
-  });
-
-
-
-  app.get("/turn", (request, response) => {
-    response.send("Driveing forward")
-    socket.send(JSON.stringify({ type: 'turn' }))
-  });
-
-
-
 
 });
 
