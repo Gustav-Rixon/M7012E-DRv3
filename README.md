@@ -2,12 +2,21 @@
 
 This project was made for [M7012E "Pervasive Computing"](https://www.ltu.se/edu/course/M70/M7012E/M7012E-Pervasive-Computing-1.68715?kursView=kursplan&l=en), running over LP3-2022 at LTU.
 
+#### Contributors:
+
+Gustav Rixon - gusrix-8@student.ltu.se
+
+Edison Widell Delgado - edidel-8@student.ltu.se
+
+Wilmer Thakén - wiltha-8@student.ltu.se
+
+Olle Elvland - ollelv-8@student.ltu.se
+ 
 ## Table of Contents:
 
 -  [Installation](#installation)
 -  [Gadgets](#gadgets)
 -  [Usage](#usage)
--  [Documentation](#documentation)
 -  [License](#license)
 
 ## Gadgets
@@ -18,13 +27,13 @@ This project was made for [M7012E "Pervasive Computing"](https://www.ltu.se/edu/
 
 ## Installation
 
-## Prerequisites
+### Prerequisites
 
   [Node 16.14.2](https://nodejs.org/en/) or later
   
   [Unity 2020.3.30f1](https://unity3d.com/unity/whats-new/2020.3.30) 
 
-## Run
+### Run
   * `git clone https://github.com/Gustav-Rixon/M7012E-DRv3`
 
 ## Usage
@@ -36,8 +45,6 @@ From `/../M7012E-DRv3\standby-webrtc` run `npm start` to start the services
 Serivce is now available from `http:LOCALHOST:3000`
 
 For unity controllers see[https://github.com/Gustav-Rixon/M7012E-DRv3/blob/main/Remote%20control/README.md]
-
-## Documentation
 
 ## License
 
