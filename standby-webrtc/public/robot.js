@@ -7,18 +7,20 @@ function log(text) {
 
 var socket = null;
 function connectWebsocket() {
+  // Note: This uses HTTP. For HTTPS use wss instead.
   socket = new WebSocket("ws://" + window.location.hostname + ":3000");
   log("socket")
-  socket.onopen = function(event) { log("Connected to server"); };
+  socket.onopen = function (event) { log("Connected to server"); };
   log(socket)
-  socket.onclose = function() {
+  socket.onclose = function () {
     log("Disconnected from server");
     endCall();
     socket = null;
     setTimeout(connectWebsocket, 1000);
   }
 
-  socket.onmessage = function(event) {
+  // Receives signal from socket and parses it to JSON format for switch cases.
+  socket.onmessage = function (event) {
     var signal = null;
     try {
       signal = JSON.parse(event.data);
@@ -28,18 +30,16 @@ function connectWebsocket() {
     }
 
     if (signal) {
-      // Note: DO NOT pass DRDoubleSDK commands directy from your driver or you will be opening a massive security hole to your robot. You should use your own command structure for your signaling server, then hard-code commands for the DRDoubleSDK on the robot side - just like we're doing right here.
+      // Note: DO NOT pass DRDoubleSDK commands directy from your driver or you will be opening a massive security hole to your robot. 
+      // You should use your own command structure for your signaling server, then hard-code commands for the DRDoubleSDK on the robot side - just like we're doing right here.
       switch (signal.type) {
 
+        // Check if a robot is connected to the socket pool.
         case "isRobotAvailable":
           sendToServer({ type: "robotIsAvailable", message: "Robot is here!" });
           log("Received availability check");
           break;
 
-        case "preheat":
-          DRDoubleSDK.sendCommand("camera.enable", { template: "preheat" });
-          break;
-          
         case "startCall":
           log("startCall");
           DRDoubleSDK.sendCommand("webrtc.enable", {
@@ -53,55 +53,56 @@ function connectWebsocket() {
           endCall();
           break;
 
-        case "answer":
         case "candidate":
           log("Received signal");
           DRDoubleSDK.sendCommand("webrtc.signal", signal);
           break;
 
+        // Raise the pole
         case "poleStand":
           DRDoubleSDK.sendCommand("base.pole.stand");
           break;
 
+        // Lower the pole
         case "poleSit":
           DRDoubleSDK.sendCommand("base.pole.sit");
           break;
 
+        // Stop pole movement
         case "poleStop":
           DRDoubleSDK.sendCommand("base.pole.stop");
           break;
-          
+
+        // Enable robot navigation
         case "enableNavigation":
           DRDoubleSDK.sendCommand("navigate.enable");
           break;
 
+        // Drive robot forward, 500 ms
         case "driveForward":
           DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0.5, turn: 0, powerDrive: false, disableTurn: false });
           break;
 
+        // Drive robot backward, 500 ms
         case "driveBackward":
           DRDoubleSDK.sendCommand("navigate.drive", { throttle: -0.5, turn: 0, powerDrive: false, disableTurn: false });
           break;
 
+        // Turn robot left, 500 ms
         case "turnLeft":
           DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0, turn: -0.5, powerDrive: false, disableTurn: false });
           break;
 
+        // Turn robot right, 500 ms
         case "turnRight":
           DRDoubleSDK.sendCommand("navigate.drive", { throttle: 0, turn: 0.5, powerDrive: false, disableTurn: false });
-          break;
-
-        case "relativeTarget":
-          if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
-            DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
-          }
           break;
       }
     }
   };
 }
-connectWebsocket();
 
+connectWebsocket();
 function sendToServer(message) {
   socket.send(JSON.stringify(message));
 }
@@ -138,11 +139,9 @@ DRDoubleSDK.sendCommand("events.subscribe", {
 DRDoubleSDK.on("event", (message) => {
 
   // Event messages include: { class: "DRNetwork", key: "info", data: {...} }
-	switch (message.class + "." + message.key) {
-
+  switch (message.class + "." + message.key) {
     case "DRWebRTC.signal":
       sendToServer(message.data);
       break;
-
   }
 });

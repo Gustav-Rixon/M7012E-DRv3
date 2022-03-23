@@ -8,16 +8,16 @@ var iceConfig = null;
 var socket = null;
 function connectWebsocket() {
   socket = new WebSocket("ws://" + window.location.hostname + ":3000");
-  socket.onopen = function(event) { log("Connected to server"); };
+  socket.onopen = function (event) { log("Connected to server"); };
 
-  socket.onclose = function() {
+  socket.onclose = function () {
     log("Disconnected from server");
     window.endCall();
     socket = null;
     setTimeout(connectWebsocket, 1000);
   }
 
-  socket.onmessage = function(event) {
+  socket.onmessage = function (event) {
     var signal = null;
     try {
       signal = JSON.parse(event.data);
@@ -62,36 +62,36 @@ var iceConfigTextarea = document.getElementById("iceConfig");
 if (window.location.host == "d3-webrtc-example.glitch.me") {
   urlBox.value = "Do step 1 first!";
 } else {
-  urlBox.value = "http://"+ window.location.host +"/robot";
+  urlBox.value = "http://" + window.location.host + "/robot";
 }
 
 window.listWebcams = () => {
   window.endLocalVideo();
-  
-  navigator.mediaDevices.getUserMedia({audio: true, video: true})
-  .then(() => {
-    navigator.mediaDevices.enumerateDevices()
-    .then(function (devices) {
-      devices.forEach(function(device) {
-        var option = document.createElement("option");
-        option.value = device.deviceId;
-        option.innerText = device.label;
-        if (device.kind == "videoinput") {
-          cameras.appendChild(option);
-        } else if (device.kind == "audioinput") {
-          mics.appendChild(option);
-        }
-      });
 
-      window.updateLocalVideo();
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+    .then(() => {
+      navigator.mediaDevices.enumerateDevices()
+        .then(function (devices) {
+          devices.forEach(function (device) {
+            var option = document.createElement("option");
+            option.value = device.deviceId;
+            option.innerText = device.label;
+            if (device.kind == "videoinput") {
+              cameras.appendChild(option);
+            } else if (device.kind == "audioinput") {
+              mics.appendChild(option);
+            }
+          });
+
+          window.updateLocalVideo();
+        })
+        .catch(function (err) {
+          console.log(err.name + ": " + err.message);
+        });
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err.name + ": " + err.message);
     });
-  })
-  .catch(function(err) {
-    console.log(err.name + ": " + err.message);
-  });
 };
 
 function clearWebcams() {
@@ -117,10 +117,10 @@ window.updateLocalVideo = () => {
     audio: { deviceId: mics.value },
     video: { deviceId: cameras.value }
   })
-  .then(function (stream) {
-    stopLocalVideo();
-    localVideo.srcObject = stream;
-  });
+    .then(function (stream) {
+      stopLocalVideo();
+      localVideo.srcObject = stream;
+    });
 }
 
 window.checkForRobot = () => {
@@ -136,7 +136,7 @@ window.startCall = () => {
     return;
   }
   iceConfig.sdpSemantics = "unified-plan";
-  
+
   webrtc = new DriverWebRTC(iceConfig, log, window.sendToServer, window.endCall);
   window.sendToServer({
     type: "startCall",

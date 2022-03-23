@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Double 3 WebRTC: Driver</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A cool thing made with Glitch">
-    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/style.css">
-    <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
-    <script src="/driver_webrtc.js" type="module"></script>
-    <script src="/driver.js" type="module"></script>
-  </head>
-  <body>
-    <header>
-      <h1>D3 WebRTC Example: Driver</h1>
-    </header>
 
-    <main>
-      <div class="streams">
-        <video id="localVideo" autoplay muted></video>
-        <video id="remoteVideo" autoplay muted style="width: 480px;"></video>
-      </div>
-      <ol>
-        
-        <li>
-          Load custom robot Standby GUI from the Developer Monitor (http://<span style="color: #929292;">ROBOT_LOCAL_IP</span>:8080/ &gt; Dashboard &gt; Standby GUI &gt; GO):<br>
-          <input type="text" value="" size="50" id="urlBox" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-        </li>
-        
-        <li class="optional">
-          Optional:
-          <input type="button" value="Check for Robot" onclick="checkForRobot()">
-          &nbsp;<span id="robotAvailability"></span>
-        </li>
+<head>
+  <meta charset="utf-8">
+  <title>Double 3 WebRTC: Driver</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A cool thing made with Glitch">
+  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
+  <script src="/driver_webrtc.js" type="module"></script>
+  <script src="/driver.js" type="module"></script>
+</head>
 
-        <li class="optional">
-          Optional:
-          <input type="button" value="List Webcams" onclick="listWebcams()">
-          <select id="cameras" onchange="updateLocalVideo()"></select>
-          <select id="mics" onchange="updateLocalVideo()"></select>
-          <input type="button" value="Clear" onclick="endLocalVideo()">
-        </li>
+<body>
+  <header>
+    <h1>D3 Driver: Page</h1>
+  </header>
 
-          <textarea id="iceConfig" rows="11" style="display: none;";" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{
+  <main>
+    <div class="streams">
+      <video id="localVideo" autoplay muted></video>
+      <video id="remoteVideo" autoplay muted style="width: 480px;"></video>
+    </div>
+    <ol>
+
+      <li>
+        Load custom robot Standby GUI from the Developer Monitor (http://<span
+          style="color: #929292;">ROBOT_LOCAL_IP</span>:8080/ &gt; Dashboard &gt; Standby GUI &gt; GO):<br>
+        <input type="text" value="" size="50" id="urlBox" autocomplete="off" autocorrect="off" autocapitalize="off"
+          spellcheck="false">
+      </li>
+
+      <li class="optional">
+        Optional:
+        <input type="button" value="Check for Robot" onclick="checkForRobot()">
+        &nbsp;<span id="robotAvailability"></span>
+      </li>
+
+      <li class="optional">
+        Optional:
+        <input type="button" value="List Webcams" onclick="listWebcams()">
+        <select id="cameras" onchange="updateLocalVideo()"></select>
+        <select id="mics" onchange="updateLocalVideo()"></select>
+        <input type="button" value="Clear" onclick="endLocalVideo()">
+      </li>
+
+      <textarea id="iceConfig" rows="11" style="display: none;" ;" autocomplete="off" autocorrect="off"
+        autocapitalize="off" spellcheck="false">{
   "iceTransportPolicy": "all",
   "iceServers": [
     { "urls": [ "stun:rtc-oregon.doublerobotics.com:443" ] },
@@ -55,32 +60,24 @@
   ]
 }</textarea>
 
-        <li>
-          <input type="button" value="Call" onclick="startCall()">
-          <input type="button" value="Hang Up" onclick="endCall()">
-        </li>
+      <li>
+        <input type="button" value="Call" onclick="startCall()">
+        <input type="button" value="Hang Up" onclick="endCall()">
+      </li>
 
-        <li class="optional">
-          Optional: Add robot controls, such as Pole 
-          <a href="javascript:sendToServer({ type: 'poleStand' })">stand</a> |
-          <a href="javascript:sendToServer({ type: 'poleSit' })">sit</a> |
-          <a href="javascript:sendToServer({ type: 'poleStop' })">stop</a>
-          or 
-          <a href="javascript:sendToServer({ type: 'enableNavigation' })">enable navigation</a>
-          and
-          <a href="javascript:sendToServer({ type: 'relativeTarget', x: 1, y: 0 })">drive forward 1 meter</a>.
-        </li>
+      <li class="optional">
+        Optional: Add robot controls, such as Pole
+        <a href="javascript:sendToServer({ type: 'poleStand' })">stand</a> |
+        <a href="javascript:sendToServer({ type: 'poleSit' })">sit</a> |
+        <a href="javascript:sendToServer({ type: 'poleStop' })">stop</a>
+        or
+        <a href="javascript:sendToServer({ type: 'enableNavigation' })">enable navigation</a>
+      </li>
 
-      </ol>
-      <hr>
-      <div id="logs"></div>
-    </main>
-    
-    <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
+    </ol>
+    <hr>
+    <div id="logs"></div>
+  </main>
+</body>
 
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
-  </body>
 </html>

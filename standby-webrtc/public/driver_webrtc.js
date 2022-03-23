@@ -5,7 +5,7 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
   var pc = null;
   var localVideo = document.getElementById("localVideo");
   var remoteVideo = document.getElementById("remoteVideo");
-  
+
   this.handleVideoOffer = async (msg) => {
     log("Received call offer");
 
@@ -50,12 +50,12 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
       pc.ontrack = null;
 
       pc.getSenders().forEach(track => { pc.removeTrack(track); });
-      
+
       if (remoteVideo) {
         remoteVideo.srcObject = null;
         remoteVideo.controls = false;
       }
-      
+
       pc.close();
       pc = null;
     }
@@ -75,7 +75,7 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
 
   this.oniceconnectionstatechange = () => {
     log("ICE connection state changed to " + pc.iceConnectionState);
-    switch(pc.iceConnectionState) {
+    switch (pc.iceConnectionState) {
       case "closed":
       case "failed":
       case "disconnected":
@@ -90,7 +90,7 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
 
   this.onsignalingstatechange = () => {
     log("WebRTC signaling state changed to: " + pc.signalingState);
-    switch(pc.signalingState) {
+    switch (pc.signalingState) {
       case "closed":
         hangUpCall();
         break;
@@ -102,7 +102,7 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
     remoteVideo.srcObject = event.streams[0];
     remoteVideo.controls = true;
   };
-  
+
 };
 
 export default DriverWebRTC;
