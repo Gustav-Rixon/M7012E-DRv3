@@ -7,7 +7,7 @@ This project was developed in Unity 2020.3.30f1 and Leapmotion SDK v5.3.1-0d83c9
 1. Install Unity 2020.3.30f1 and download this project.
 2. Open the "Remote Control" in Unity, check if the assets contain a ControllMove script and the "ThirdParty" folder which has the ultraleap folder
 3. Connect a Leapmotion controller to the computer.
-4. Now you can start the program within Unity which will show your hands ond buttons which controll the robot while the server is active and the robot is connected through the websocket.
+4. Now you can start the program within Unity which will show your hands and buttons which controll the robot while the server is active and the robot is connected through the websocket.
 
 ## adding changes
 
